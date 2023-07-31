@@ -1,4 +1,6 @@
-# tabak
+# Shisha tabak
+
+Simple calculator for Shisha molasses and tobacco percentages
 
 ## Project setup
 ```

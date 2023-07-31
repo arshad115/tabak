@@ -1,42 +1,189 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
+    <p>Caculate percentages for the Shisha Tabak</p>
+    <h3>
+      Tabak - <span style="color: red">{{ tabakPercentage }}%</span>
+    </h3>
     <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
+      <li>
+        <label for="tabak">Tabak:</label>
+        <input
+          type="number"
+          id="tabak"
+          name="tabak"
+          v-model.number="tabakWeight"
+        />
+      </li>
+      <li>
+        <label for="molasse">Molasse:</label>
+        <input
+          type="number"
+          id="molasse"
+          name="molasse"
+          v-model.number="molasseWeight"
+        />
+      </li>
     </ul>
-    <h3>Essential Links</h3>
+    <h3>
+      Molasse - <span style="color: red">{{ molassePercentage }}%</span>
+    </h3>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
+      <li>
+        <label for="glycerin">Glycerin:</label>
+        <input
+          type="number"
+          id="glycerin"
+          name="glycerin"
+          v-model.number="glycerinWeight"
+        />
+      </li>
+      <li>
+        <label for="aroma">Aroma:</label>
+        <input
+          type="number"
+          id="aroma"
+          name="aroma"
+          v-model.number="aromaWeight"
+        />
+      </li>
+      <li>
+        <label for="sugar">Süßungsmittel:</label>
+        <input
+          type="number"
+          id="sugar"
+          name="sugar"
+          v-model.number="sugarWeight"
+        />
+      </li>
     </ul>
-    <h3>Ecosystem</h3>
+    <h3>Values in Percentages</h3>
+    <h3>Tabak</h3>
     <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+      <li>
+        <label for="tabakpercentage">Tabak:</label>
+        <input
+          type="number"
+          id="tabakpercentage"
+          name="tabakpercentage"
+          v-model.number="tabakPercentage"
+        />
+      </li>
+      <li>
+        <label for="molassepercentage">Molasse:</label>
+        <input
+          type="number"
+          id="molassepercentage"
+          name="molassepercentage"
+          v-model.number="molassePercentage"
+        />
+      </li>
+    </ul>
+    <h3>Molasse</h3>
+    <ul>
+      <li>
+        <label for="glycerinpercentage">Glycerin:</label>
+        <input
+          type="number"
+          id="glycerinpercentage"
+          name="glycerinpercentage"
+          v-model.number="glycerinPercentage"
+        />
+      </li>
+      <li>
+        <label for="aromapercentage">Aroma:</label>
+        <input
+          type="number"
+          id="aromapercentage"
+          name="aromapercentage"
+          v-model.number="aromaPercentage"
+        />
+      </li>
+      <li>
+        <label for="sugarpercentage">Süßungsmittel:</label>
+        <input
+          type="number"
+          id="sugarpercentage"
+          name="sugarpercentage"
+          v-model.number="sugarPercentage"
+        />
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+  computed: {
+    molasseWeight: {
+      get: function () {
+        return (
+          (this.tabakWeight / this.tabakPercentage) *
+          this.molassePercentage
+        ).toFixed(2);
+      },
+      set: function (newValue) {
+        this.molasseWeight = newValue;
+      },
+    },
+    glycerinWeight: {
+      get: function () {
+        return ((this.molasseWeight / 100) * this.glycerinPercentage).toFixed(
+          2
+        );
+      },
+      set: function (newValue) {
+        this.glycerinWeight = newValue;
+      },
+    },
+    aromaWeight: {
+      get: function () {
+        return ((this.molasseWeight / 100) * this.aromaPercentage).toFixed(2);
+      },
+      set: function (newValue) {
+        this.aromaWeight = newValue;
+      },
+    },
+    sugarWeight: {
+      get: function () {
+        return ((this.molasseWeight / 100) * this.sugarPercentage).toFixed(2);
+      },
+      set: function (newValue) {
+        this.aromaWeight = newValue;
+      },
+    },
+  },
+  data() {
+    return {
+      tabakWeight: 100,
+      tabakPercentage: 17,
+      molassePercentage: 83,
+      glycerinPercentage: 85,
+      aromaPercentage: 10,
+      sugarPercentage: 5,
+    };
+  },
+  watch: {
+    // molasseWeight() {
+    //   this.calculate();
+    // },
+    // tabakWeight() {
+    //   this.calculate();
+    // },
+  },
+  methods: {
+    calculate: function () {
+      this.tabakWeight =
+        (this.molasseWeight / this.molassePercentage) * this.tabakPercentage;
+      this.molasseWeight =
+        (this.tabakWeight / this.tabakPercentage) * this.molassePercentage;
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
